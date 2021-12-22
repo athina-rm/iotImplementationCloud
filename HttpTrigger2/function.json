@@ -7,7 +7,8 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "get"
+        "get",
+        "post"
       ]
     },
     {
@@ -19,10 +20,10 @@
       "type": "cosmosDB",
       "name": "doc",
       "databaseName": "waterlevelRainData",
-      "collectionName": "waterlevel_data",
+      "collectionName": "API_data",
       "connectionStringSetting": "AzureCosmosDBConnectionString",
       "direction": "in",
       "sqlQuery": "SELECT TOP 1 * from c ORDER BY c._ts DESC"
-    }    
+    }
   ]
 }
