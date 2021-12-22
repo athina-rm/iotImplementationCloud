@@ -6,8 +6,8 @@ Most of the homes in India where  I come from has wells or underground water res
 Data Collection :
   The water level will be measured by using an ultrasonic sensor that measures the distance to an object by transmitting and receiving ultrasonic sound waves. Ideally data should be collected from a real world setup. Since that’s impossible in my case, I will either build a small prototype and measure the data or simulate the data with a program for the execution of the project. Since the project requirement asks for external API data, I collect rain data at the location from https://www.weatherapi.com/.<br>
   The target group for the project are home users who are interested in automation of water tanks and will monitor the water usage.
-  ![alt text](System_sketch.drawio.png)  
-  
+ ![System_sketch drawio](https://user-images.githubusercontent.com/71870874/147053453-d26ecdf2-13c7-4b27-9740-4b276a88a7ed.png)
+
 ### Implementation:
 Since Azure seems to be most popular platform in the Nordic so I decided to go with Azure and tried to implement everything using Azure. I used this opportunity to deepen my knowledge on Azure. The project was cut down from initial concept to adjust for time limitation. For example, the bidirectional communication, cold storage for data hasn’t been implemented. 
 #### Device :
@@ -26,7 +26,7 @@ I havent used any authorisation level for simplicity during development. But a f
 I opted for Cosmos DB in this project for its ease of use. Since it is a noSql document style database, data transformation process was easier. I chose Core (SQL) API since its easy to retrieve data using query and has the best support.
 #### PowerBI
 Data from cosmosDB was collected in PowerBI for visualisation.
-![alt text](Visualisation.pdf)
+<img width="897" alt="PowerBi Visual" src="https://user-images.githubusercontent.com/71870874/147052759-931ca1f8-886f-471c-b436-e2c5cfda66f5.png">
 #### HttpTrigger Azure Function
 This is used as a serverless API to display the latest data on the website.  I haven’t used API key during development. Only the preferres domain can access the data due to CORS policy. But Function key or API management is suggested for production environment more include more security. 
 #### Azure Static Web Apps
