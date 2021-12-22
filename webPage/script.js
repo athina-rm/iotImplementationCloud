@@ -7,4 +7,5 @@ fetch("https://gethubandapidata.azurewebsites.net/api/HttpTrigger1")
       .then((myJson) => {
                 overhead.innerHTML += myJson[0].OverheadTankLevel;
                 document.getElementById('rainWater').innerHTML += myJson[0].rainWaterTankLevel;
+                console.log (myJson);
       }) ;                 
