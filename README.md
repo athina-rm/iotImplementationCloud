@@ -30,7 +30,8 @@ Data from cosmosDB was collected in PowerBI for visualisation.
 #### HttpTrigger Azure Function
 This is used as a serverless API to display the latest data on the website.  I haven’t used API key during development. Only the preferres domain can access the data due to CORS policy. But Function key or API management is suggested for production environment more include more security. 
 #### Azure Static Web Apps
-I chose Static webapp for visualisation due to time and knowledge constraints. Azure Static Web Apps offers continuous integration /continuous development which was ideal for me since I am no expert in Javascript or HTML. It allowed a fully automated development process with github. If I had more time I would have explored the option to implement realtime webapp by implementing websocket with Azure Web PubSub or Azure Webapps. The Webpage was hosted in domain  https://wonderful-bush-0de9e9003.azurestaticapps.net and the SSL certificate was managed by Azure itself.<br>
+I chose Static webapp for visualisation due to time and knowledge constraints. Azure Static Web Apps offers continuous integration /continuous development which was ideal for me since I am no expert in Javascript or HTML. It allowed a fully automated development process with github. If I had more time I would have explored the option to implement realtime webapp by implementing websocket with Azure Web PubSub or Azure Webapps. The Webpage was hosted in domain  https://wonderful-bush-0de9e9003.azurestaticapps.net and the SSL certificate was managed by Azure itself.<br><img width="463" alt="webApp screenshot" src="https://user-images.githubusercontent.com/71870874/147085721-be684735-16b6-4c8d-a656-8bcb4fb7a025.png">
+
 Visual Studio Code IDE, Visual Studio IDE, GitHub and PowerBI were used during the development process.
 
 
