@@ -1,4 +1,7 @@
 ﻿using Microsoft.Azure.Devices.Client;
+using Microsoft.Azure.Devices.Shared;
+using Microsoft.Azure.Devices.Provisioning.Client;
+using Microsoft.Azure.Devices.Provisioning.Client.Transport;
 using Newtonsoft.Json;
 using System;
 using System.Text;
@@ -8,10 +11,64 @@ namespace ConsoleApp
 {
     class Program
     {
-        private static DeviceClient deviceClient = DeviceClient.CreateFromConnectionString("HostName=rainWaterLevel.azure-devices.net;DeviceId=device1;SharedAccessKey=2KVe5sbRFSreMGrYGiS5O52/VpVCsjED/AfjBWUE24U=", TransportType.Mqtt);
+        private static string dpsIdScope = "0ne00465B52";
 
-        static async Task Main(string[] args)
+        private static string registrationId = "device-01";            
+           
+        private const string indEnrollPriKey = "GbHpPo2cr8i7W1S6Zivchwt+n/SasafuYhamjzWewWuacU6ZOyzs5lg4j++ZTj/WJly+IuUvDVUzC99EXgYsSQ==";
+
+        private const string indEnrollSecKey = "egKZ9D+8ikuHJd9srMa19Y6mY3evgr7pgVc/4qQofNiljrDqj+Oz6sYBGOinLCJeOEskP5iZq1puIQbyzS0Lcw==";        
+
+        private const string globalDeviceEndpoint = "global.azure-devices-provisioning.net";
+        public static DeviceClient deviceClient;
+
+    static async Task Main(string[] args)
         {
+            if (string.IsNullOrWhiteSpace(dpsIdScope) && (args.Length > 0))
+            {
+                dpsIdScope = args[0];
+            }
+
+            if (string.IsNullOrWhiteSpace(dpsIdScope))
+            {
+                Console.WriteLine("ProvisioningDeviceClientSymmetricKey <IDScope> <registrationID>");
+            }
+
+            if (string.IsNullOrWhiteSpace(registrationId) && (args.Length > 1))
+            {
+                registrationId = args[1];
+            }
+
+            if (string.IsNullOrWhiteSpace(registrationId))
+            {
+                Console.WriteLine("ProvisioningDeviceClientSymmetricKey <IDScope> <registrationID>");
+            }
+
+            string primaryKey = "";
+            string secondaryKey = "";
+            if (!String.IsNullOrEmpty(registrationId) && !String.IsNullOrEmpty(indEnrollPriKey) && !String.IsNullOrEmpty(indEnrollSecKey))
+            {
+                //Individual enrollment flow, the primary and secondary keys are the same as the individual enrollment keys
+                primaryKey = indEnrollPriKey;
+                secondaryKey = indEnrollSecKey;
+            }
+            else
+            {
+                Console.WriteLine("Invalid configuration provided, must provide group enrollment keys or individual enrollment keys");
+            }
+            using (var security = new SecurityProviderSymmetricKey(registrationId, primaryKey, secondaryKey))
+            using (var transport = new ProvisioningTransportHandlerMqtt(TransportFallbackType.WebSocketOnly))
+            {
+                ProvisioningDeviceClient provClient = ProvisioningDeviceClient.Create(globalDeviceEndpoint, dpsIdScope, security, transport);
+                DeviceRegistrationResult result = await provClient.RegisterAsync();
+                if (result.Status != ProvisioningRegistrationStatusType.Assigned)
+                {
+                    Console.WriteLine($"ProvisioningClient AssignedHub: {result.AssignedHub}; DeviceId: {result.DeviceId}");
+                }
+                var auth = new DeviceAuthenticationWithRegistrySymmetricKey(result.DeviceId, security.GetPrimaryKey());
+                deviceClient = DeviceClient.Create(result.AssignedHub, auth, TransportType.Mqtt);
+            }         
+            
             int tanklevel = 125;
             bool pumping = false;
             int rainWaterTankLevel=25;
@@ -62,4 +119,3 @@ namespace ConsoleApp
         }
     }
 }
-
