@@ -6,10 +6,7 @@ Most of the homes in India where  I come from has wells or underground water res
 Data Collection :
   The water level will be measured by using an ultrasonic sensor that measures the distance to an object by transmitting and receiving ultrasonic sound waves. Ideally data should be collected from a real world setup. Since that’s impossible in my case, I will either build a small prototype and measure the data or simulate the data with a program for the execution of the project. Since the project requirement asks for external API data, I collect rain data at the location from https://www.weatherapi.com/.<br>
   The target group for the project are home users who are interested in automation of water tanks and will monitor the water usage.
-  
-  
-  
-  
+  ![alt text](System_sketch.drawio.png)  
   
 ### Implementation:
 Since Azure seems to be most popular platform in the Nordic so I decided to go with Azure and tried to implement everything using Azure. I used this opportunity to deepen my knowledge on Azure. The project was cut down from initial concept to adjust for time limitation. For example, the bidirectional communication, cold storage for data hasn’t been implemented. 
@@ -29,11 +26,11 @@ I havent used any authorisation level for simplicity during development. But a f
 I opted for Cosmos DB in this project for its ease of use. Since it is a noSql document style database, data transformation process was easier. I chose Core (SQL) API since its easy to retrieve data using query and has the best support.
 #### PowerBI
 Data from cosmosDB was collected in PowerBI for visualisation.
+![alt text](Visualisation.pdf)
 #### HttpTrigger Azure Function
 This is used as a serverless API to display the latest data on the website.  I haven’t used API key during development. Only the preferres domain can access the data due to CORS policy. But Function key or API management is suggested for production environment more include more security. 
 #### Azure Static Web Apps
 I chose Static webapp for visualisation due to time and knowledge constraints. Azure Static Web Apps offers continuous integration /continuous development which was ideal for me since I am no expert in Javascript or HTML. It allowed a fully automated development process with github. If I had more time I would have explored the option to implement realtime webapp by implementing websocket with Azure Web PubSub or Azure Webapps. The Webpage was hosted in domain  https://wonderful-bush-0de9e9003.azurestaticapps.net and the SSL certificate was managed by Azure itself.<br>
-
 Visual Studio Code IDE, Visual Studio IDE, GitHub and PowerBI were used during the development process.
 
 
