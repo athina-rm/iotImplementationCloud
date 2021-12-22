@@ -9,7 +9,7 @@ Data Collection :
  ![System_sketch drawio](https://user-images.githubusercontent.com/71870874/147053453-d26ecdf2-13c7-4b27-9740-4b276a88a7ed.png)
 
 ### Implementation:
-Since Azure seems to be most popular platform in the Nordic so I decided to go with Azure and tried to implement everything using Azure. I used this opportunity to deepen my knowledge on Azure. The project was cut down from initial concept to adjust for time limitation. For example, the bidirectional communication, cold storage for data hasn’t been implemented. 
+Since Azure seems to be most popular platform in the Nordic I decided to go with Azure and tried to implement everything using Azure. I used this opportunity to deepen my knowledge on Azure. The project was cut down from initial concept to adjust for time limitation. For example, the bidirectional communication, cold storage for data hasn’t been implemented. 
 #### Device :
 The device in the current project is a simulated device done in C# that sends the waterlevel in OverheadTank, Rainwater harvesting tank and the measured time to the IotHub. The data is sent once in  a minute using MQTT protocol. In production it would be better to have an edge device that can collect the data and automate the water pumping to the overhead tank. The code simulation currently does the pumping if the water goes below a minimum level.
 #### Device Provisioning :
